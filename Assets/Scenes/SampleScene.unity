@@ -151,9 +151,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99701c2319b183b4da59b0b802e6cb5e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gold: 0
-  leather: 0
-  steel: 0
+  gold: 50
+  leather: 30
+  steel: 30
   fame: 0
   armors:
   - {fileID: 2378682174364082194, guid: 3180ac1db702f5e49aacb53e9ec4bb4c, type: 3}
