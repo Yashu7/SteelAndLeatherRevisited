@@ -11,7 +11,9 @@ public class GameController : MonoBehaviour
    private Vector3 leftSlot = new Vector3(-1.5F,2,0);
    private Vector3 rightSlot =  new Vector3(1.5F,2,0);
    
-   public GameObject armor;
+   public GameObject[] armors = new GameObject[2];
+   public Transform leftArmor;
+   public Transform rightArmor;
    public GameObject clickedObject;
    #endregion
 
@@ -21,11 +23,8 @@ public class GameController : MonoBehaviour
        EventsBroker.ReturnClick += AssignObject;
        EventsBroker.ClickedForgeButton += Forge;
       
-       var Armor = Instantiate(armor);
-       Armor.transform.position = leftSlot;
-      
-       var Armor2 = Instantiate(armor);
-       Armor2.transform.position = rightSlot;
+     leftArmor = InstatiateNewArmor(armors[0],leftSlot);
+     rightArmor = InstatiateNewArmor(armors[1],rightSlot);
 
    }
    #endregion
@@ -35,14 +34,28 @@ public class GameController : MonoBehaviour
    {
        clickedObject = obj;
    }
-   private void InstatiateNewArmor()
+   private Transform InstatiateNewArmor(GameObject armor,Vector3 pos)
    {
-
+       var Armor = Instantiate(armor);
+       Armor.transform.position = pos;
+       return Armor.transform;
    }
    private void Forge()
    {
        if(clickedObject == null) return;
-       Debug.Log("Repaired "+clickedObject.name);
+       Destroy(clickedObject);
+       
+       if(leftArmor.childCount <= 1)
+       {
+           Destroy(leftArmor.gameObject);
+           leftArmor = InstatiateNewArmor(armors[0],leftSlot);
+       }
+       if(rightArmor.childCount <= 1)
+       {
+           Destroy(rightArmor.gameObject);
+           rightArmor = InstatiateNewArmor(armors[1],rightSlot);
+       }
+       
    } 
    #endregion
 }
