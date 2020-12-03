@@ -43,15 +43,22 @@ public class GameController : MonoBehaviour
    private void Forge()
    {
        if(clickedObject == null) return;
+       var partCost = clickedObject.GetComponent<IPart>();
+       steel -= partCost.SteelCost;
+       leather -= partCost.LeatherCost;
        Destroy(clickedObject);
+       
        
        if(leftArmor.childCount <= 1)
        {
+           gold += 50;
            Destroy(leftArmor.gameObject);
            leftArmor = InstatiateNewArmor(armors[0],leftSlot);
+           
        }
        if(rightArmor.childCount <= 1)
        {
+           gold += 50;
            Destroy(rightArmor.gameObject);
            rightArmor = InstatiateNewArmor(armors[1],rightSlot);
        }
