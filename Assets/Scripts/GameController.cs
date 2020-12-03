@@ -8,6 +8,7 @@ public class GameController : MonoBehaviour
    public int gold;
    public int leather;
    public int steel;
+   public int fame;
    private Vector3 leftSlot = new Vector3(-1.5F,2,0);
    private Vector3 rightSlot =  new Vector3(1.5F,2,0);
    
@@ -22,6 +23,8 @@ public class GameController : MonoBehaviour
    {
        EventsBroker.ReturnClick += AssignObject;
        EventsBroker.ClickedForgeButton += Forge;
+       EventsBroker.ClickedBuyLeatherButton += BuyLeather;
+       EventsBroker.ClickedBuySteelButton += BuySteel;
       
      leftArmor = InstatiateNewArmor(armors[0],leftSlot);
      rightArmor = InstatiateNewArmor(armors[1],rightSlot);
@@ -40,29 +43,54 @@ public class GameController : MonoBehaviour
        Armor.transform.position = pos;
        return Armor.transform;
    }
+   private void BuyLeather()
+   {
+       gold -= 10;
+       leather += 5;
+       CalculatePoints();
+   } 
+   private void BuySteel()
+   {
+       gold -= 10;
+       steel += 5;
+       CalculatePoints();
+   } 
    private void Forge()
    {
        if(clickedObject == null) return;
        var partCost = clickedObject.GetComponent<IPart>();
        steel -= partCost.SteelCost;
        leather -= partCost.LeatherCost;
+       
        Destroy(clickedObject);
        
        
        if(leftArmor.childCount <= 1)
        {
            gold += 50;
+           fame += 10;
            Destroy(leftArmor.gameObject);
            leftArmor = InstatiateNewArmor(armors[0],leftSlot);
+          
            
        }
        if(rightArmor.childCount <= 1)
        {
            gold += 50;
+           fame += 10;
            Destroy(rightArmor.gameObject);
            rightArmor = InstatiateNewArmor(armors[1],rightSlot);
+            
        }
+       CalculatePoints();
        
    } 
+   private void CalculatePoints()
+   {
+       EventsBroker.CallUpdateLeather(leather);
+       EventsBroker.CallUpdateFame(fame);
+       EventsBroker.CallUpdateGold(gold);
+       EventsBroker.CallUpdateSteel(steel);
+   }
    #endregion
 }

@@ -154,6 +154,7 @@ MonoBehaviour:
   gold: 0
   leather: 0
   steel: 0
+  fame: 0
   armors:
   - {fileID: 2378682174364082194, guid: 3180ac1db702f5e49aacb53e9ec4bb4c, type: 3}
   - {fileID: 2378682174364082194, guid: 3180ac1db702f5e49aacb53e9ec4bb4c, type: 3}
@@ -874,6 +875,7 @@ GameObject:
   - component: {fileID: 1430644387}
   - component: {fileID: 1430644386}
   - component: {fileID: 1430644385}
+  - component: {fileID: 1430644389}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -962,6 +964,22 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &1430644389
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1430644384}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 90c63b3ad9b3096478805c70f6eb076d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  steelAmount: {fileID: 2022819918}
+  leatherAmount: {fileID: 381498463}
+  goldAmount: {fileID: 1542226457}
+  fameAmount: {fileID: 1676894410}
 --- !u!1 &1516429071
 GameObject:
   m_ObjectHideFlags: 0
@@ -1210,6 +1228,7 @@ GameObject:
   - component: {fileID: 1716589786}
   - component: {fileID: 1716589785}
   - component: {fileID: 1716589784}
+  - component: {fileID: 1716589787}
   m_Layer: 5
   m_Name: BuySteelButton
   m_TagString: Untagged
@@ -1317,6 +1336,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1716589782}
   m_CullTransparentMesh: 0
+--- !u!114 &1716589787
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1716589782}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2bf371b1b7f0db2418a2a13a908f272e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2009583141
 GameObject:
   m_ObjectHideFlags: 0
@@ -1485,6 +1516,7 @@ GameObject:
   - component: {fileID: 2048513815}
   - component: {fileID: 2048513814}
   - component: {fileID: 2048513813}
+  - component: {fileID: 2048513816}
   m_Layer: 5
   m_Name: BuyLeatherButton
   m_TagString: Untagged
@@ -1592,3 +1624,15 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2048513811}
   m_CullTransparentMesh: 0
+--- !u!114 &2048513816
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2048513811}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d6d1389dad3dc364695d26395bdcaf21, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
