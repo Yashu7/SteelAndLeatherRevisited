@@ -8,6 +8,7 @@ public class EventsBroker
     #region Custom Delegates
     public delegate void ObjectClicked(GameObject obj);
     public delegate void UpdateUI(int amount);
+    public delegate void PassObject<T>(T Tobj);
     #endregion
    
     #region Events
@@ -19,6 +20,7 @@ public class EventsBroker
     public static event UpdateUI UpdateGold;
     public static event UpdateUI UpdateSteel;
     public static event UpdateUI UpdateLeather;
+    public static event PassObject<GameObject> ArmorTimesUp;
 
     #endregion
   
@@ -80,4 +82,13 @@ public class EventsBroker
    }
    #endregion
 
+    #region Armor Action
+    public static void CallArmorTimesUp(GameObject armor)
+    {
+        if(ArmorTimesUp != null)
+        ArmorTimesUp(armor);
+        
+    }
+
+    #endregion
 }

@@ -4,14 +4,20 @@ using UnityEngine;
 
 public class ArmorController : MonoBehaviour
 {
-    public GameObject head, leftArm,rightArm,leftLeg,rightLeg;
+    private float timespan = 10;
+    private Vector3 position;
     void Start()
     {
-        head = transform.GetChild(4).gameObject;
-        leftArm =  transform.GetChild(1).gameObject;
-        rightArm  = transform.GetChild(2).gameObject;
-        leftLeg =  transform.GetChild(0).gameObject;
-        rightLeg =  transform.GetChild(3).gameObject;
+        position = transform.position;
+    }
+    void Update()
+    {
+        timespan -= Time.deltaTime;
+        if(timespan <= 0) 
+        {
+            EventsBroker.CallArmorTimesUp(this.gameObject);
+            
+        }
     }
 }
     

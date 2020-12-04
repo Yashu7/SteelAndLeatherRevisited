@@ -155,12 +155,11 @@ MonoBehaviour:
   leather: 30
   steel: 30
   fame: 0
-  armors:
-  - {fileID: 2378682174364082194, guid: 3180ac1db702f5e49aacb53e9ec4bb4c, type: 3}
-  - {fileID: 2378682174364082194, guid: 3180ac1db702f5e49aacb53e9ec4bb4c, type: 3}
+  armor: {fileID: 2378682174364082194, guid: 3180ac1db702f5e49aacb53e9ec4bb4c, type: 3}
   leftArmor: {fileID: 0}
   rightArmor: {fileID: 0}
   clickedObject: {fileID: 0}
+  timer: 0
 --- !u!4 &28055201
 Transform:
   m_ObjectHideFlags: 0

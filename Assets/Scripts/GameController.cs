@@ -12,26 +12,29 @@ public class GameController : MonoBehaviour
    private Vector3 leftSlot = new Vector3(-1.5F,2,0);
    private Vector3 rightSlot =  new Vector3(1.5F,2,0);
    
-   public GameObject[] armors = new GameObject[2];
+   public GameObject armor;
    public Transform leftArmor;
    public Transform rightArmor;
    public GameObject clickedObject;
+   public float timer;
    #endregion
 
    #region Unity Methods
-   public void Start()
+    void Start()
    {
        EventsBroker.ReturnClick += AssignObject;
        EventsBroker.ClickedForgeButton += Forge;
        EventsBroker.ClickedBuyLeatherButton += BuyLeather;
        EventsBroker.ClickedBuySteelButton += BuySteel;
+       EventsBroker.ArmorTimesUp += ResetArmor;
        
-       leftArmor = InstatiateNewArmor(armors[0],leftSlot);
-       rightArmor = InstatiateNewArmor(armors[1],rightSlot);
+       leftArmor = InstatiateNewArmor(armor,leftSlot);
+       rightArmor = InstatiateNewArmor(armor,rightSlot);
 
        CalculatePoints();
 
    }
+    
    #endregion
    #region My Methods
    //Assign clicked gameobject.
@@ -41,6 +44,7 @@ public class GameController : MonoBehaviour
    }
    private Transform InstatiateNewArmor(GameObject armor,Vector3 pos)
    {
+      
        var Armor = Instantiate(armor);
        Armor.transform.position = pos;
        return Armor.transform;
@@ -97,7 +101,7 @@ public class GameController : MonoBehaviour
            gold += 50;
            fame += 10;
            Destroy(leftArmor.gameObject);
-           leftArmor = InstatiateNewArmor(armors[0],leftSlot);
+           leftArmor = InstatiateNewArmor(armor,leftSlot);
           
            
        }
@@ -106,9 +110,24 @@ public class GameController : MonoBehaviour
            gold += 50;
            fame += 10;
            Destroy(rightArmor.gameObject);
-           rightArmor = InstatiateNewArmor(armors[1],rightSlot);
+           rightArmor = InstatiateNewArmor(armor,rightSlot);
             
        }
+   }
+   public void ResetArmor(GameObject gameObject)
+   {
+        
+        if(leftArmor.transform.position == gameObject.transform.position)
+        {
+        Destroy(gameObject);
+        leftArmor = InstatiateNewArmor(armor,leftSlot);
+        }
+        if(rightArmor.transform.position == gameObject.transform.position)
+        {
+        Destroy(gameObject);
+        rightArmor = InstatiateNewArmor(armor,rightSlot);
+        }
+      
    }
    #endregion
 }
