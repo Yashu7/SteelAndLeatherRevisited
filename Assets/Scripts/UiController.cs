@@ -8,6 +8,8 @@ public class UiController : MonoBehaviour
     public Text leatherAmount;
     public Text goldAmount;
     public Text fameAmount;
+    public Text leftTimer;
+    public Text rightTimer;
 
     void Start()
     {
@@ -15,6 +17,19 @@ public class UiController : MonoBehaviour
         EventsBroker.UpdateGold += UpdateGold;
         EventsBroker.UpdateLeather += UpdateLeather;
         EventsBroker.UpdateSteel += UpdateSteel;
+        EventsBroker.UpdateLeftTimer += UpdateLeftTimer;
+        EventsBroker.UpdateRightTimer += UpdateRightTimer;
+
+    }
+    private void UpdateLeftTimer(int timer)
+    {
+        leftTimer.text = timer.ToString();
+       
+    }
+    private void UpdateRightTimer(int timer)
+    {
+      
+        rightTimer.text = timer.ToString();
     }
     private void UpdateGold(int amount)
     {

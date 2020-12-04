@@ -4,14 +4,15 @@ using UnityEngine;
 
 public class ArmorController : MonoBehaviour
 {
-    private float timespan = 10;
-    private Vector3 position;
+    public float timespan;
+    
     void Start()
     {
-        position = transform.position;
+        timespan = Random.Range(10,25);
     }
     void Update()
     {
+        EventsBroker.CallCheckTimer(this.gameObject, (int)timespan);
         timespan -= Time.deltaTime;
         if(timespan <= 0) 
         {

@@ -27,6 +27,7 @@ public class GameController : MonoBehaviour
        EventsBroker.ClickedBuyLeatherButton += BuyLeather;
        EventsBroker.ClickedBuySteelButton += BuySteel;
        EventsBroker.ArmorTimesUp += ResetArmor;
+       EventsBroker.CheckTimer += ValidateTimer;
        
        leftArmor = InstatiateNewArmor(armor,leftSlot);
        rightArmor = InstatiateNewArmor(armor,rightSlot);
@@ -58,7 +59,7 @@ public class GameController : MonoBehaviour
    } 
    private void BuySteel()
    {
-        if((gold-5)< 0) return;
+        if(CheckIfLost(5)) return;
        gold -= 5;
        steel += 1;
        CalculatePoints();
@@ -116,7 +117,12 @@ public class GameController : MonoBehaviour
    }
    public void ResetArmor(GameObject gameObject)
    {
-        
+       if(CheckIfLost(15))
+       {
+           Application.Quit();
+       }
+        gold -= 15;
+        fame -= 5;
         if(leftArmor.transform.position == gameObject.transform.position)
         {
         Destroy(gameObject);
@@ -127,7 +133,25 @@ public class GameController : MonoBehaviour
         Destroy(gameObject);
         rightArmor = InstatiateNewArmor(armor,rightSlot);
         }
+        CalculatePoints();
       
+   }
+   public void ValidateTimer(GameObject gameObject, int timer)
+   {
+       if(leftArmor.transform.position == gameObject.transform.position)
+        {
+            EventsBroker.CallUpdateUiLeftTimer(timer);
+        }
+        if(rightArmor.transform.position == gameObject.transform.position)
+        {
+            EventsBroker.CallUpdateUiRightTimer(timer);
+        }
+   }
+   private bool CheckIfLost(int amount)
+   {
+       if((gold - amount) <= 0) return true;
+       return false;
+       
    }
    #endregion
 }

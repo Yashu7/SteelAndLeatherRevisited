@@ -9,6 +9,7 @@ public class EventsBroker
     public delegate void ObjectClicked(GameObject obj);
     public delegate void UpdateUI(int amount);
     public delegate void PassObject<T>(T Tobj);
+    public delegate void PassTwoObjects<T,T2>(T obj,T2 obj2);
     #endregion
    
     #region Events
@@ -20,6 +21,9 @@ public class EventsBroker
     public static event UpdateUI UpdateGold;
     public static event UpdateUI UpdateSteel;
     public static event UpdateUI UpdateLeather;
+    public static event UpdateUI UpdateLeftTimer;
+    public static event UpdateUI UpdateRightTimer;
+    public static event PassTwoObjects<GameObject, int> CheckTimer;
     public static event PassObject<GameObject> ArmorTimesUp;
 
     #endregion
@@ -88,6 +92,27 @@ public class EventsBroker
         if(ArmorTimesUp != null)
         ArmorTimesUp(armor);
         
+    }
+    public static void CallUpdateUiLeftTimer(int timer)
+    {
+        if(UpdateLeftTimer != null)
+        {
+            UpdateLeftTimer(timer);
+        }
+    }
+     public static void CallUpdateUiRightTimer(int timer)
+    {
+        if(UpdateRightTimer != null)
+        {
+            UpdateRightTimer(timer);
+        }
+    }
+    public static void CallCheckTimer(GameObject obj, int i)
+     {
+        if(CheckTimer != null)
+        {
+            CheckTimer(obj, i);
+        }
     }
 
     #endregion
