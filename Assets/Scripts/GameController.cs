@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using System;
 
 public class GameController : MonoBehaviour
 {
@@ -8,7 +10,7 @@ public class GameController : MonoBehaviour
    public int gold = 50;
    public int leather = 30;
    public int steel = 30;
-   public int fame = 0;
+   public int guildPoints = 0;
    private Vector3 leftSlot = new Vector3(-1.5F,2,0);
    private Vector3 rightSlot =  new Vector3(1.5F,2,0);
    
@@ -22,6 +24,7 @@ public class GameController : MonoBehaviour
    #region Unity Methods
     void Start()
    {
+       
        EventsBroker.ReturnClick += AssignObject;
        EventsBroker.ClickedForgeButton += Forge;
        EventsBroker.ClickedBuyLeatherButton += BuyLeather;
@@ -29,11 +32,22 @@ public class GameController : MonoBehaviour
        EventsBroker.ArmorTimesUp += ResetArmor;
        EventsBroker.CheckTimer += ValidateTimer;
        
+       
        leftArmor = InstatiateNewArmor(armor,leftSlot);
        rightArmor = InstatiateNewArmor(armor,rightSlot);
 
        CalculatePoints();
 
+   }
+  
+   public void OnDisable()
+   {
+        EventsBroker.ReturnClick -= AssignObject;
+       EventsBroker.ClickedForgeButton -= Forge;
+       EventsBroker.ClickedBuyLeatherButton -= BuyLeather;
+       EventsBroker.ClickedBuySteelButton -= BuySteel;
+       EventsBroker.ArmorTimesUp -= ResetArmor;
+       EventsBroker.CheckTimer -= ValidateTimer;
    }
     
    #endregion
@@ -84,7 +98,7 @@ public class GameController : MonoBehaviour
    private void CalculatePoints()
    {
        EventsBroker.CallUpdateLeather(leather);
-       EventsBroker.CallUpdateFame(fame);
+       EventsBroker.CallUpdateGuildPoints(guildPoints);
        EventsBroker.CallUpdateGold(gold);
        EventsBroker.CallUpdateSteel(steel);
    }
@@ -100,7 +114,7 @@ public class GameController : MonoBehaviour
     if(leftArmor.childCount <= 1)
        {
            gold += 50;
-           fame += 10;
+           guildPoints += 10;
            Destroy(leftArmor.gameObject);
            leftArmor = InstatiateNewArmor(armor,leftSlot);
           
@@ -109,7 +123,7 @@ public class GameController : MonoBehaviour
        if(rightArmor.childCount <= 1)
        {
            gold += 50;
-           fame += 10;
+           guildPoints += 10;
            Destroy(rightArmor.gameObject);
            rightArmor = InstatiateNewArmor(armor,rightSlot);
             
@@ -117,12 +131,11 @@ public class GameController : MonoBehaviour
    }
    public void ResetArmor(GameObject gameObject)
    {
-       if(CheckIfLost(15))
+       if(!CheckIfLost(15))
        {
-           Application.Quit();
-       }
+      
         gold -= 15;
-        fame -= 5;
+        guildPoints -= 5;
         if(leftArmor.transform.position == gameObject.transform.position)
         {
         Destroy(gameObject);
@@ -134,6 +147,7 @@ public class GameController : MonoBehaviour
         rightArmor = InstatiateNewArmor(armor,rightSlot);
         }
         CalculatePoints();
+       }
       
    }
    public void ValidateTimer(GameObject gameObject, int timer)
@@ -149,7 +163,23 @@ public class GameController : MonoBehaviour
    }
    private bool CheckIfLost(int amount)
    {
-       if((gold - amount) <= 0) return true;
+       if((gold - amount) <= 0) 
+       {
+           HighPointsModel model = new HighPointsModel()
+           {
+               Id = 999,
+               PlayerID = SystemInfo.deviceUniqueIdentifier,
+               HighPoints = guildPoints
+               
+           };
+            ApiConsumer.InsertHighScore(model);
+            EventsBroker.CallOnGameOver();
+            Destroy(leftArmor.gameObject);
+            Destroy(rightArmor.gameObject);
+            Destroy(this.gameObject);
+           
+           return true;
+       }
        return false;
        
    }

@@ -15,9 +15,11 @@ public class MouseClickController : MonoBehaviour
            if(Physics.Raycast(ray,out hit))
            {
                EventsBroker.CallReturnClick(hit.collider.gameObject);
+              
            }
 
 
         }
     }
+   
 }

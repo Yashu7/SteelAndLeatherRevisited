@@ -7,19 +7,42 @@ public class UiController : MonoBehaviour
     public Text steelAmount;
     public Text leatherAmount;
     public Text goldAmount;
-    public Text fameAmount;
+    public Text guildPointsAmount;
     public Text leftTimer;
     public Text rightTimer;
+    public GameObject gameOverUI;
 
     void Start()
     {
-        EventsBroker.UpdateFame += UpdateFame;
+        EventsBroker.UpdateGuildPoints += UpdateGuildPoints;
         EventsBroker.UpdateGold += UpdateGold;
         EventsBroker.UpdateLeather += UpdateLeather;
         EventsBroker.UpdateSteel += UpdateSteel;
         EventsBroker.UpdateLeftTimer += UpdateLeftTimer;
         EventsBroker.UpdateRightTimer += UpdateRightTimer;
+        EventsBroker.OnGameOver += TurnOffUi;
 
+    }
+    public void OnDisable()
+    {
+        EventsBroker.UpdateGuildPoints -= UpdateGuildPoints;
+        EventsBroker.UpdateGold -= UpdateGold;
+        EventsBroker.UpdateLeather -= UpdateLeather;
+        EventsBroker.UpdateSteel -= UpdateSteel;
+        EventsBroker.UpdateLeftTimer -= UpdateLeftTimer;
+        EventsBroker.UpdateRightTimer -= UpdateRightTimer;
+        EventsBroker.OnGameOver -= TurnOffUi;
+    }
+    private void TurnOffUi()
+    {
+        List<Transform> items = new List<Transform>();
+        items = new List<Transform>(transform.GetComponentsInChildren<Transform>());
+        items.Remove(this.transform);
+        foreach(var t in items)
+        {
+            t.gameObject.SetActive(false);
+        }
+        gameOverUI.SetActive(true);
     }
     private void UpdateLeftTimer(int timer)
     {
@@ -35,9 +58,9 @@ public class UiController : MonoBehaviour
     {
         goldAmount.text = amount.ToString();
     }
-    private void UpdateFame(int amount)
+    private void UpdateGuildPoints(int amount)
     {
-        fameAmount.text = amount.ToString();
+        guildPointsAmount.text = amount.ToString();
     }
     private void UpdateLeather(int amount)
     {

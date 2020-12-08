@@ -10,6 +10,8 @@ public class EventsBroker
     public delegate void UpdateUI(int amount);
     public delegate void PassObject<T>(T Tobj);
     public delegate void PassTwoObjects<T,T2>(T obj,T2 obj2);
+
+    
     #endregion
    
     #region Events
@@ -17,7 +19,7 @@ public class EventsBroker
     public static event Action ClickedForgeButton;
     public static event Action ClickedBuySteelButton;
     public static event Action ClickedBuyLeatherButton;
-    public static event UpdateUI UpdateFame;
+    public static event UpdateUI UpdateGuildPoints;
     public static event UpdateUI UpdateGold;
     public static event UpdateUI UpdateSteel;
     public static event UpdateUI UpdateLeather;
@@ -25,16 +27,28 @@ public class EventsBroker
     public static event UpdateUI UpdateRightTimer;
     public static event PassTwoObjects<GameObject, int> CheckTimer;
     public static event PassObject<GameObject> ArmorTimesUp;
+    public static event Action OnGameOver;
+
+   
 
     #endregion
   
+    #region Game Flow Control
+    public static void CallOnGameOver()
+    {
+        if(OnGameOver != null)
+        OnGameOver();
+    }
+    
+    #endregion
+
     #region Assign Game Points To UI delegats
 
-    public static void CallUpdateFame(int amount)
+    public static void CallUpdateGuildPoints(int amount)
     {
-        if(UpdateFame != null)
+        if(UpdateGuildPoints != null)
        
-            UpdateFame(amount);
+            UpdateGuildPoints(amount);
         
     }
     public static void CallUpdateGold(int amount)
@@ -114,6 +128,7 @@ public class EventsBroker
             CheckTimer(obj, i);
         }
     }
+  
 
     #endregion
 }

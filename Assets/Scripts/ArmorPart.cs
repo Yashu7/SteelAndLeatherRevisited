@@ -14,7 +14,8 @@ public class ArmorPart : MonoBehaviour, IPart
     {
         SteelCost = InitializeCost();
         LeatherCost = InitializeCost();
-        
     }
+
+    
     
 }
