@@ -24,13 +24,15 @@ public class GameController : MonoBehaviour
    #region Unity Methods
     void Start()
    {
-       
+      
+       Debug.Log(User.Get());
        EventsBroker.ReturnClick += AssignObject;
        EventsBroker.ClickedForgeButton += Forge;
        EventsBroker.ClickedBuyLeatherButton += BuyLeather;
        EventsBroker.ClickedBuySteelButton += BuySteel;
        EventsBroker.ArmorTimesUp += ResetArmor;
        EventsBroker.CheckTimer += ValidateTimer;
+       
        
        
        leftArmor = InstatiateNewArmor(armor,leftSlot);
@@ -169,7 +171,8 @@ public class GameController : MonoBehaviour
            {
                Id = 999,
                PlayerID = SystemInfo.deviceUniqueIdentifier,
-               HighPoints = guildPoints
+               HighPoints = guildPoints,
+               Username = User.Get()
                
            };
             ApiConsumer.InsertHighScore(model);
