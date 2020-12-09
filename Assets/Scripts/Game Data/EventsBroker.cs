@@ -28,6 +28,7 @@ public class EventsBroker
     public static event PassTwoObjects<GameObject, int> CheckTimer;
     public static event PassObject<GameObject> ArmorTimesUp;
     public static event Action OnGameOver;
+    public static event Action OnCreateUser;
 
    
 
@@ -38,6 +39,11 @@ public class EventsBroker
     {
         if(OnGameOver != null)
         OnGameOver();
+    }
+    public static void CallCreateUser()
+    {
+        if(OnCreateUser != null)
+        OnCreateUser();
     }
     
     #endregion

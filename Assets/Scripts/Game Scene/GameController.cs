@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using System;
+using System.Threading.Tasks;
 
 public class GameController : MonoBehaviour
 {
    #region fields and properties
+   public Text textResponse;
    public int gold = 50;
    public int leather = 30;
    public int steel = 30;
@@ -25,7 +27,7 @@ public class GameController : MonoBehaviour
     void Start()
    {
       
-       Debug.Log(User.Get());
+       
        EventsBroker.ReturnClick += AssignObject;
        EventsBroker.ClickedForgeButton += Forge;
        EventsBroker.ClickedBuyLeatherButton += BuyLeather;
@@ -163,11 +165,9 @@ public class GameController : MonoBehaviour
             EventsBroker.CallUpdateUiRightTimer(timer);
         }
    }
-   private bool CheckIfLost(int amount)
+   public  void SaveHighPointsToApi()
    {
-       if((gold - amount) <= 0) 
-       {
-           HighPointsModel model = new HighPointsModel()
+       HighPointsModel model = new HighPointsModel()
            {
                Id = 999,
                PlayerID = SystemInfo.deviceUniqueIdentifier,
@@ -175,7 +175,17 @@ public class GameController : MonoBehaviour
                Username = User.Get()
                
            };
-            ApiConsumer.InsertHighScore(model);
+        string response = "";
+         
+        response = ApiConsumer.InsertHighScore(model);
+        textResponse.text = response;
+        Debug.Log(response);
+   }
+   private bool CheckIfLost(int amount)
+   {
+       if((gold - amount) <= 0) 
+       {
+            SaveHighPointsToApi();
             EventsBroker.CallOnGameOver();
             Destroy(leftArmor.gameObject);
             Destroy(rightArmor.gameObject);

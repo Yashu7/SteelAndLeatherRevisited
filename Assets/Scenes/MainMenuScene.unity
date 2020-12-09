@@ -590,6 +590,7 @@ GameObject:
   - component: {fileID: 1616710875}
   - component: {fileID: 1616710874}
   - component: {fileID: 1616710873}
+  - component: {fileID: 1616710877}
   m_Layer: 0
   m_Name: Canvas
   m_TagString: Untagged
@@ -677,6 +678,19 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &1616710877
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1616710872}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 24e17ec6de170094996dc0381e9163c7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  userName: 
 --- !u!1 &1640557932
 GameObject:
   m_ObjectHideFlags: 0
@@ -689,6 +703,7 @@ GameObject:
   - component: {fileID: 1640557936}
   - component: {fileID: 1640557935}
   - component: {fileID: 1640557934}
+  - component: {fileID: 1640557937}
   m_Layer: 0
   m_Name: AcceptUsernameButton
   m_TagString: Untagged
@@ -796,6 +811,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1640557932}
   m_CullTransparentMesh: 0
+--- !u!114 &1640557937
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1640557932}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 38ff54a58b7b56743975535866cd69ac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1938129007
 GameObject:
   m_ObjectHideFlags: 0
@@ -891,7 +918,18 @@ MonoBehaviour:
       m_Calls: []
   m_OnValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1616710877}
+        m_MethodName: AssignUsername
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_CaretColor: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
   m_CustomCaretColor: 0
   m_SelectionColor: {r: 0.65882355, g: 0.80784315, b: 1, a: 0.7529412}
