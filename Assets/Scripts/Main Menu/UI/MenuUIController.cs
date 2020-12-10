@@ -14,7 +14,7 @@ public class MenuUIController : MonoBehaviour
 
     public void SaveUsername()
     {
-        User.Set(userName);
+        User.SetGlobalUsername(userName);
          SceneManager.LoadScene(1);
     }
 

@@ -172,23 +172,25 @@ public class GameController : MonoBehaviour
                Id = 999,
                PlayerID = SystemInfo.deviceUniqueIdentifier,
                HighPoints = guildPoints,
-               Username = User.Get()
+               Username = User.GetGlobalUsername()
                
            };
         string response = "";
-         
+
         response = ApiConsumer.InsertHighScore(model);
         textResponse.text = response;
         Debug.Log(response);
    }
    private bool CheckIfLost(int amount)
    {
+     
        if((gold - amount) <= 0) 
        {
-            SaveHighPointsToApi();
+             SaveHighPointsToApi();
             EventsBroker.CallOnGameOver();
             Destroy(leftArmor.gameObject);
             Destroy(rightArmor.gameObject);
+            
             Destroy(this.gameObject);
            
            return true;
